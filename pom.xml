@@ -28,7 +28,7 @@
         <dependency>
             <groupId>com.dcsquare.hivemq</groupId>
             <artifactId>hivemq-spi</artifactId>
-            <version>1.4</version>
+            <version>1.5-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -87,7 +87,10 @@
                                     <goal>hivemq</goal>
                                 </goals>
                                 <configuration>
-                                    <hiveMQDir>FIXME: PATH TO HIVEMQ Folder</hiveMQDir>
+                                    <hiveMQDir>/Applications/hivemq-Development-Snapshot</hiveMQDir>
+                                    <debugMode>
+                                        SERVER
+                                    </debugMode>
                                 </configuration>
                             </execution>
                         </executions>

@@ -20,8 +20,10 @@ import com.dcsquare.hivemq.spi.callback.CallbackPriority;
 import com.dcsquare.hivemq.spi.callback.events.OnPublishReceivedCallback;
 import com.dcsquare.hivemq.spi.callback.exception.OnPublishReceivedException;
 import com.dcsquare.hivemq.spi.message.PUBLISH;
+import com.dcsquare.hivemq.spi.message.RetainedMessage;
 import com.dcsquare.hivemq.spi.security.ClientData;
-import com.google.common.base.Charsets;
+import com.dcsquare.hivemq.spi.services.RetainedMessageStore;
+import com.google.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +38,13 @@ public class PublishReceived implements OnPublishReceivedCallback {
 
     Logger logger = LoggerFactory.getLogger(PublishReceived.class);
 
+    RetainedMessageStore retainedMessageStore;
+
+    @Inject
+    PublishReceived(RetainedMessageStore retainedMessageStore){
+        this.retainedMessageStore = retainedMessageStore;
+    }
+
     /**
      * This method is called from the HiveMQ, when a new MQTT {@link PUBLISH} message arrives
      * at the broker. In this acme the method is just logging each message to the console.
@@ -47,11 +56,14 @@ public class PublishReceived implements OnPublishReceivedCallback {
      */
     @Override
     public void onPublishReceived(PUBLISH publish, ClientData clientData) throws OnPublishReceivedException {
-        String clientID = clientData.getClientId();
-        String topic = publish.getTopic();
-        String message = new String(publish.getPayload(), Charsets.UTF_8);
-
-        logger.info("Client " + clientID + " sent a message to topic " + topic + ": " + message);
+        if (publish.getTopic().equals("Delete/Received/Messages")){
+            String topicToRemove = new String(publish.getPayload());
+            for (RetainedMessage retainedMessage : retainedMessageStore.getRetainedMessages()){
+                if (retainedMessage.getTopic().startsWith(topicToRemove+"/") || retainedMessage.getTopic().equals(topicToRemove)){
+                    retainedMessageStore.remove(retainedMessage);
+                }
+            }
+        }
     }
 
     /**

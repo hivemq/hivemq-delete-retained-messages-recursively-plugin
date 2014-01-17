@@ -38,12 +38,17 @@ public class HelloWorldMainClass extends PluginEntryPoint {
 
     private final Configuration configuration;
 
+    private final PublishReceived publishReceived;
+
+
+
     /**
      * @param configuration Injected configuration, which is declared in the {@link HelloWorldPluginModule}.
      */
     @Inject
-    public HelloWorldMainClass(Configuration configuration) {
+    public HelloWorldMainClass(Configuration configuration, PublishReceived publishReceived) {
         this.configuration = configuration;
+        this.publishReceived = publishReceived;
     }
 
     /**
@@ -58,7 +63,7 @@ public class HelloWorldMainClass extends PluginEntryPoint {
         callbackRegistry.addCallback(new HiveMQStart());
         callbackRegistry.addCallback(new ClientConnect());
         callbackRegistry.addCallback(new ClientDisconnect());
-        callbackRegistry.addCallback(new PublishReceived());
+        callbackRegistry.addCallback(publishReceived);
 
         log.info("Plugin configuration property: {}", configuration.getString("myProperty"));
     }
