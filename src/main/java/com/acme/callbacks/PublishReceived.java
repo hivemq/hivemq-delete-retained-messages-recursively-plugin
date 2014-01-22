@@ -27,6 +27,8 @@ import com.google.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
+
 /**
  * This class implements the {@link OnPublishReceivedCallback}, which is triggered everytime
  * a new message is published to the broker. This callback enables a custom handling of a
@@ -35,6 +37,7 @@ import org.slf4j.LoggerFactory;
  * @author Christian Goetz
  */
 public class PublishReceived implements OnPublishReceivedCallback {
+
 
     Logger logger = LoggerFactory.getLogger(PublishReceived.class);
 
@@ -56,15 +59,17 @@ public class PublishReceived implements OnPublishReceivedCallback {
      */
     @Override
     public void onPublishReceived(PUBLISH publish, ClientData clientData) throws OnPublishReceivedException {
-        if (publish.getTopic().equals("Delete/Received/Messages")){
-            String topicToRemove = new String(publish.getPayload());
+        String message = new String(publish.getPayload());
+        if (message.isEmpty() && publish.isRetain()){
+            String topicToRemove = publish.getTopic();
             for (RetainedMessage retainedMessage : retainedMessageStore.getRetainedMessages()){
                 if (retainedMessage.getTopic().startsWith(topicToRemove+"/") || retainedMessage.getTopic().equals(topicToRemove)){
-                    retainedMessageStore.remove(retainedMessage);
+                    retainedMessageStore.remove(retainedMessage.getTopic());
                 }
             }
         }
     }
+
 
     /**
      * The priority is used when more than one OnConnectCallback is implemented to determine the order.

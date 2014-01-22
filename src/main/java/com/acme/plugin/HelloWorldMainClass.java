@@ -16,9 +16,6 @@
 
 package com.acme.plugin;
 
-import com.acme.callbacks.ClientConnect;
-import com.acme.callbacks.ClientDisconnect;
-import com.acme.callbacks.HiveMQStart;
 import com.acme.callbacks.PublishReceived;
 import com.dcsquare.hivemq.spi.PluginEntryPoint;
 import com.dcsquare.hivemq.spi.callback.registry.CallbackRegistry;
@@ -60,9 +57,6 @@ public class HelloWorldMainClass extends PluginEntryPoint {
 
         CallbackRegistry callbackRegistry = getCallbackRegistry();
 
-        callbackRegistry.addCallback(new HiveMQStart());
-        callbackRegistry.addCallback(new ClientConnect());
-        callbackRegistry.addCallback(new ClientDisconnect());
         callbackRegistry.addCallback(publishReceived);
 
         log.info("Plugin configuration property: {}", configuration.getString("myProperty"));
