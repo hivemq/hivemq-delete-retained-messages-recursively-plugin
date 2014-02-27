@@ -31,26 +31,17 @@ import javax.inject.Inject;
  */
 public class DeleteRetainedMessagesRecursivelyMainClass extends PluginEntryPoint {
 
-    Logger log = LoggerFactory.getLogger(DeleteRetainedMessagesRecursivelyMainClass.class);
-
     private final PublishReceived publishReceived;
-
-
 
     @Inject
     public DeleteRetainedMessagesRecursivelyMainClass(PublishReceived publishReceived) {
         this.publishReceived = publishReceived;
     }
 
-    /**
-     * This method is executed after the instanciation of the whole class. It is used to initialize
-     * the implemented callbacks and make them known to the HiveMQ core.
-     */
     @PostConstruct
     public void postConstruct() {
 
         CallbackRegistry callbackRegistry = getCallbackRegistry();
-
         callbackRegistry.addCallback(publishReceived);
     }
 }

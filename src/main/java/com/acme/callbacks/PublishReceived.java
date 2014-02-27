@@ -24,27 +24,13 @@ import com.dcsquare.hivemq.spi.message.RetainedMessage;
 import com.dcsquare.hivemq.spi.security.ClientData;
 import com.dcsquare.hivemq.spi.services.RetainedMessageStore;
 import com.google.inject.Inject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-
-/**
- * This class implements the {@link OnPublishReceivedCallback}, which is triggered everytime
- * a new message is published to the broker. This callback enables a custom handling of a
- * MQTT message, for acme saving to a database.
- *
- * @author Christian Goetz
- */
 public class PublishReceived implements OnPublishReceivedCallback {
-
-
-    Logger logger = LoggerFactory.getLogger(PublishReceived.class);
 
     RetainedMessageStore retainedMessageStore;
 
     @Inject
-    PublishReceived(RetainedMessageStore retainedMessageStore){
+    PublishReceived(RetainedMessageStore retainedMessageStore) {
         this.retainedMessageStore = retainedMessageStore;
     }
 
@@ -60,23 +46,20 @@ public class PublishReceived implements OnPublishReceivedCallback {
     @Override
     public void onPublishReceived(PUBLISH publish, ClientData clientData) throws OnPublishReceivedException {
         String message = new String(publish.getPayload());
-        if (message.isEmpty() && publish.isRetain()){
-            String topicToRemove = publish.getTopic();
-            for (RetainedMessage retainedMessage : retainedMessageStore.getRetainedMessages()){
-                if (retainedMessage.getTopic().startsWith(topicToRemove+"/") || retainedMessage.getTopic().equals(topicToRemove)){
-                    retainedMessageStore.remove(retainedMessage.getTopic());
-                }
+        if (message.isEmpty() && publish.isRetain()) {
+            removeRetainedMessagesRecursively(publish);
+        }
+    }
+
+    private void removeRetainedMessagesRecursively(PUBLISH publish) {
+        String topicToRemove = publish.getTopic();
+        for (RetainedMessage retainedMessage : retainedMessageStore.getRetainedMessages()) {
+            if (retainedMessage.getTopic().startsWith(topicToRemove + "/") || retainedMessage.getTopic().equals(topicToRemove)) {
+                retainedMessageStore.remove(retainedMessage.getTopic());
             }
         }
     }
 
-
-    /**
-     * The priority is used when more than one OnConnectCallback is implemented to determine the order.
-     * If there is only one callback, which implements a certain interface, the priority has no effect.
-     *
-     * @return callback priority
-     */
     @Override
     public int priority() {
         return CallbackPriority.MEDIUM;
