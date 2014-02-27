@@ -29,22 +29,16 @@ import javax.inject.Inject;
 /**
  * This is the main class of the plugin, which is instanciated during the HiveMQ start up process.
  */
-public class HelloWorldMainClass extends PluginEntryPoint {
+public class DeleteRetainedMessagesRecursivelyMainClass extends PluginEntryPoint {
 
-    Logger log = LoggerFactory.getLogger(HelloWorldMainClass.class);
-
-    private final Configuration configuration;
+    Logger log = LoggerFactory.getLogger(DeleteRetainedMessagesRecursivelyMainClass.class);
 
     private final PublishReceived publishReceived;
 
 
 
-    /**
-     * @param configuration Injected configuration, which is declared in the {@link HelloWorldPluginModule}.
-     */
     @Inject
-    public HelloWorldMainClass(Configuration configuration, PublishReceived publishReceived) {
-        this.configuration = configuration;
+    public DeleteRetainedMessagesRecursivelyMainClass(PublishReceived publishReceived) {
         this.publishReceived = publishReceived;
     }
 
@@ -58,7 +52,5 @@ public class HelloWorldMainClass extends PluginEntryPoint {
         CallbackRegistry callbackRegistry = getCallbackRegistry();
 
         callbackRegistry.addCallback(publishReceived);
-
-        log.info("Plugin configuration property: {}", configuration.getString("myProperty"));
     }
 }

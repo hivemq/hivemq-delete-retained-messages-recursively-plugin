@@ -37,7 +37,7 @@ import static com.dcsquare.hivemq.spi.config.Configurations.newReloadablePropert
  * @author Christian Goetz
  */
 @Information(name = "HiveMQ HelloWorld Plugin", author = "Christian Goetz", version = "1.0-SNAPSHOT")
-public class HelloWorldPluginModule extends HiveMQPluginModule {
+public class DeleteRetainedMessagesRecursivelyPluginModule extends HiveMQPluginModule {
 
 
     /**
@@ -55,7 +55,7 @@ public class HelloWorldPluginModule extends HiveMQPluginModule {
      */
     @Override
     public Provider<Iterable<? extends AbstractConfiguration>> getConfigurations() {
-        return newConfigurationProvider(newReloadablePropertiesConfiguration("myPlugin.properties", 5, TimeUnit.MINUTES));
+        return com.dcsquare.hivemq.spi.config.Configurations.noConfigurationNeeded();
     }
 
     /**
@@ -74,6 +74,6 @@ public class HelloWorldPluginModule extends HiveMQPluginModule {
      */
     @Override
     protected Class<? extends PluginEntryPoint> entryPointClass() {
-        return HelloWorldMainClass.class;
+        return DeleteRetainedMessagesRecursivelyMainClass.class;
     }
 }

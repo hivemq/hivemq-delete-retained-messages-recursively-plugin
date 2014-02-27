@@ -39,7 +39,6 @@ public class PublishReceivedTest {
         when(retainedMessageStore.getRetainedMessages()).thenReturn(retainedMessages);
         publishReceived = new PublishReceived(retainedMessageStore);
 
-
     }
 
     @Test
