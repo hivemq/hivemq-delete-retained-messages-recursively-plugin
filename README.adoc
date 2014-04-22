@@ -16,7 +16,7 @@ As long as this plugin is installed, the retained messages of all subtopics will
 
 . Copy the plugin into the plugins directory of you HiveMQ
 . Run HiveMQ
-. Connect a client (you could use the {websocket-link} [HiveMQ Websocket Client] for this purpose.
+. Connect a client (you could use the {websocket-link}[HiveMQ Websocket Client] for this purpose.
 . Publish a retained message with a not empty payload to the topic "test"
 . Publish an other retained message with a not empty payload to the topic "test/a"
 . Publish an empty retained message to "test"
