@@ -1,6 +1,5 @@
 package com.acme.callbacks;
 
-import com.dcsquare.hivemq.spi.message.Message;
 import com.dcsquare.hivemq.spi.message.PUBLISH;
 import com.dcsquare.hivemq.spi.message.QoS;
 import com.dcsquare.hivemq.spi.message.RetainedMessage;
@@ -16,8 +15,8 @@ import java.util.Set;
 import static org.mockito.Mockito.*;
 
 /**
-* @author Lukas Brandl
-*/
+ * @author Lukas Brandl
+ */
 public class PublishReceivedTest {
 
     @Mock
@@ -28,6 +27,7 @@ public class PublishReceivedTest {
     @Before
     public void before() {
         MockitoAnnotations.initMocks(this);
+
         Set<RetainedMessage> retainedMessages = new HashSet<RetainedMessage>();
         retainedMessages.add(new RetainedMessage("test", new byte[]{1, 2, 3}, QoS.valueOf(0)));
         retainedMessages.add(new RetainedMessage("test/a", new byte[]{1, 2, 3}, QoS.valueOf(0)));

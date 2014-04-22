@@ -25,16 +25,41 @@
 
     <description>HiveMQ Hello World Plugin - a reference for all plugin developer</description>
 
+    <developers>
+        <developer>
+            <id>lbrandl</id>
+            <name>Lukas Brandl</name>
+            <email>lukas.brandl@dc-square.de</email>
+            <organization>dc-square GmbH</organization>
+            <organizationUrl>http://www.dc-square.de</organizationUrl>
+        </developer>
+        <developer>
+            <id>dobermai</id>
+            <name>Dominik Obermaier</name>
+            <email>dominik.obermaier@dc-square.de</email>
+            <organization>dc-square GmbH</organization>
+            <organizationUrl>http://www.dc-square.de</organizationUrl>
+        </developer>
+
+    </developers>
+
     <dependencies>
         <dependency>
             <groupId>com.dcsquare.hivemq</groupId>
             <artifactId>hivemq-spi</artifactId>
-            <version>1.5-SNAPSHOT</version>
+            <version>1.5.0</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>1.9.5</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
