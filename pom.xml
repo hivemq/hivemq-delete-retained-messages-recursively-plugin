@@ -21,7 +21,7 @@
 
     <groupId>com.dcsquare.hivemq.plugin</groupId>
     <artifactId>delete-retained-messages-recursively-plugin</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <description>This plugin enables a client to delete the retained message of a topic and the retained messages of all
         it's subtopic at once
