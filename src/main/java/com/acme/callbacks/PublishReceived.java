@@ -30,29 +30,21 @@ public class PublishReceived implements OnPublishReceivedCallback {
     RetainedMessageStore retainedMessageStore;
 
     @Inject
-    PublishReceived(RetainedMessageStore retainedMessageStore) {
+    PublishReceived(final RetainedMessageStore retainedMessageStore) {
         this.retainedMessageStore = retainedMessageStore;
     }
 
-    /**
-     * This method is called from the HiveMQ, when a new MQTT {@link PUBLISH} message arrives
-     * at the broker. In this acme the method is just logging each message to the console.
-     *
-     * @param publish    The publish message send by the client.
-     * @param clientData Useful information about the clients authentication state and credentials.
-     * @throws OnPublishReceivedException When the exception is thrown, the publish is not
-     *                                    accepted and will NOT be delivered to the subscribing clients.
-     */
+
     @Override
-    public void onPublishReceived(PUBLISH publish, ClientData clientData) throws OnPublishReceivedException {
-        String message = new String(publish.getPayload());
+    public void onPublishReceived(final PUBLISH publish, final ClientData clientData) throws OnPublishReceivedException {
+        final String message = new String(publish.getPayload());
         if (message.isEmpty() && publish.isRetain()) {
             removeRetainedMessagesRecursively(publish);
         }
     }
 
-    private void removeRetainedMessagesRecursively(PUBLISH publish) {
-        String topicToRemove = publish.getTopic();
+    private void removeRetainedMessagesRecursively(final PUBLISH publish) {
+        final String topicToRemove = publish.getTopic();
         for (RetainedMessage retainedMessage : retainedMessageStore.getRetainedMessages()) {
             if (retainedMessage.getTopic().startsWith(topicToRemove + "/") || retainedMessage.getTopic().equals(topicToRemove)) {
                 retainedMessageStore.remove(retainedMessage.getTopic());

@@ -18,16 +18,21 @@ package com.acme.plugin;
 
 import com.dcsquare.hivemq.spi.HiveMQPluginModule;
 import com.dcsquare.hivemq.spi.PluginEntryPoint;
+import com.dcsquare.hivemq.spi.config.Configurations;
 import com.dcsquare.hivemq.spi.plugin.meta.Information;
 import com.google.inject.Provider;
 import org.apache.commons.configuration.AbstractConfiguration;
 
-@Information(name = "Delete Retained Message Recursively Plugin", author = "Lukas Brandl", version = "1.0-SNAPSHOT")
+@Information(
+        name = "Delete Retained Message Recursively Plugin",
+        author = "Lukas Brandl",
+        version = "1.0",
+        description = "This plugin removes all retained messages under a topic subtree recursively")
 public class DeleteRetainedMessagesRecursivelyPluginModule extends HiveMQPluginModule {
 
     @Override
     public Provider<Iterable<? extends AbstractConfiguration>> getConfigurations() {
-        return com.dcsquare.hivemq.spi.config.Configurations.noConfigurationNeeded();
+        return Configurations.noConfigurationNeeded();
     }
 
     @Override

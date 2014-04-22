@@ -19,29 +19,24 @@ package com.acme.plugin;
 import com.acme.callbacks.PublishReceived;
 import com.dcsquare.hivemq.spi.PluginEntryPoint;
 import com.dcsquare.hivemq.spi.callback.registry.CallbackRegistry;
-import org.apache.commons.configuration.Configuration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-/**
- * This is the main class of the plugin, which is instanciated during the HiveMQ start up process.
- */
+
 public class DeleteRetainedMessagesRecursivelyMainClass extends PluginEntryPoint {
 
     private final PublishReceived publishReceived;
 
     @Inject
-    public DeleteRetainedMessagesRecursivelyMainClass(PublishReceived publishReceived) {
+    public DeleteRetainedMessagesRecursivelyMainClass(final PublishReceived publishReceived) {
         this.publishReceived = publishReceived;
     }
 
     @PostConstruct
     public void postConstruct() {
 
-        CallbackRegistry callbackRegistry = getCallbackRegistry();
+        final CallbackRegistry callbackRegistry = getCallbackRegistry();
         callbackRegistry.addCallback(publishReceived);
     }
 }
