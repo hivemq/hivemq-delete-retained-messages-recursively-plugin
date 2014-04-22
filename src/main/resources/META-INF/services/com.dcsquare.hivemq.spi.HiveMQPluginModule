@@ -1,1 +1,1 @@
-com.acme.plugin.DeleteRetainedMessagesRecursivelyPluginModule
+com.dcsquare.hivemq.plugin.recursivedeletion.plugin.DeleteRetainedMessagesRecursivelyPluginModule

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.acme.callbacks;
+package com.dcsquare.hivemq.plugin.recursivedeletion.callbacks;
 
 import com.dcsquare.hivemq.spi.callback.CallbackPriority;
 import com.dcsquare.hivemq.spi.callback.events.OnPublishReceivedCallback;

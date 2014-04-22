@@ -5,3 +5,4 @@
 .DS_Store
 /.idea/
 /hivemq-hello-world-plugin.iml
+/delete-retained-messages-recursively-plugin.iml

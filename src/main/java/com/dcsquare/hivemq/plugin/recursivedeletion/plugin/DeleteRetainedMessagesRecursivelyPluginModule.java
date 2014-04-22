@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.acme.plugin;
+package com.dcsquare.hivemq.plugin.recursivedeletion.plugin;
 
 import com.dcsquare.hivemq.spi.HiveMQPluginModule;
 import com.dcsquare.hivemq.spi.PluginEntryPoint;

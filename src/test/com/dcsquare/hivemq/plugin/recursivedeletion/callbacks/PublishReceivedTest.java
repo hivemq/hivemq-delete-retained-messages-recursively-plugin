@@ -1,4 +1,4 @@
-package com.acme.callbacks;
+package com.dcsquare.hivemq.plugin.recursivedeletion.callbacks;
 
 import com.dcsquare.hivemq.spi.message.PUBLISH;
 import com.dcsquare.hivemq.spi.message.QoS;
