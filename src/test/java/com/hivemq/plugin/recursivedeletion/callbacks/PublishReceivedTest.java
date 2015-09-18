@@ -1,9 +1,9 @@
-package com.dcsquare.hivemq.plugin.recursivedeletion.callbacks;
+package com.hivemq.plugin.recursivedeletion.callbacks;
 
-import com.dcsquare.hivemq.spi.message.PUBLISH;
-import com.dcsquare.hivemq.spi.message.QoS;
-import com.dcsquare.hivemq.spi.message.RetainedMessage;
-import com.dcsquare.hivemq.spi.services.RetainedMessageStore;
+import com.hivemq.spi.message.PUBLISH;
+import com.hivemq.spi.message.QoS;
+import com.hivemq.spi.message.RetainedMessage;
+import com.hivemq.spi.services.RetainedMessageStore;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

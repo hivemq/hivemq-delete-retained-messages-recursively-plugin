@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 dc-square GmbH
+ * Copyright 2015 dc-square GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.dcsquare.hivemq.plugin.recursivedeletion.callbacks;
+package com.hivemq.plugin.recursivedeletion.callbacks;
 
-import com.dcsquare.hivemq.spi.callback.CallbackPriority;
-import com.dcsquare.hivemq.spi.callback.events.OnPublishReceivedCallback;
-import com.dcsquare.hivemq.spi.callback.exception.OnPublishReceivedException;
-import com.dcsquare.hivemq.spi.message.PUBLISH;
-import com.dcsquare.hivemq.spi.message.RetainedMessage;
-import com.dcsquare.hivemq.spi.security.ClientData;
-import com.dcsquare.hivemq.spi.services.RetainedMessageStore;
 import com.google.inject.Inject;
+import com.hivemq.spi.callback.CallbackPriority;
+import com.hivemq.spi.callback.events.OnPublishReceivedCallback;
+import com.hivemq.spi.callback.exception.OnPublishReceivedException;
+import com.hivemq.spi.message.PUBLISH;
+import com.hivemq.spi.message.RetainedMessage;
+import com.hivemq.spi.security.ClientData;
+import com.hivemq.spi.services.RetainedMessageStore;
 
 public class PublishReceived implements OnPublishReceivedCallback {
 

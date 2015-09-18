@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 dc-square GmbH
+ * Copyright 2015 dc-square GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,26 +14,18 @@
  * limitations under the License.
  */
 
-package com.dcsquare.hivemq.plugin.recursivedeletion.plugin;
+package com.hivemq.plugin.recursivedeletion.plugin;
 
-import com.dcsquare.hivemq.spi.HiveMQPluginModule;
-import com.dcsquare.hivemq.spi.PluginEntryPoint;
-import com.dcsquare.hivemq.spi.config.Configurations;
-import com.dcsquare.hivemq.spi.plugin.meta.Information;
-import com.google.inject.Provider;
-import org.apache.commons.configuration.AbstractConfiguration;
+import com.hivemq.spi.HiveMQPluginModule;
+import com.hivemq.spi.PluginEntryPoint;
+import com.hivemq.spi.plugin.meta.Information;
 
 @Information(
         name = "Delete Retained Message Recursively Plugin",
-        author = "Lukas Brandl",
-        version = "1.0",
+        author = "dc-square GmbH",
+        version = "3.0.0",
         description = "This plugin removes all retained messages under a topic subtree recursively")
 public class DeleteRetainedMessagesRecursivelyPluginModule extends HiveMQPluginModule {
-
-    @Override
-    public Provider<Iterable<? extends AbstractConfiguration>> getConfigurations() {
-        return Configurations.noConfigurationNeeded();
-    }
 
     @Override
     protected void configurePlugin() {

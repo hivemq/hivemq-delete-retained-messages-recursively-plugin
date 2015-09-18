@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 dc-square GmbH
+ * Copyright 2015 dc-square GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.dcsquare.hivemq.plugin.recursivedeletion.plugin;
+package com.hivemq.plugin.recursivedeletion.plugin;
 
-import com.dcsquare.hivemq.plugin.recursivedeletion.callbacks.PublishReceived;
-import com.dcsquare.hivemq.spi.PluginEntryPoint;
-import com.dcsquare.hivemq.spi.callback.registry.CallbackRegistry;
+import com.hivemq.plugin.recursivedeletion.callbacks.PublishReceived;
+import com.hivemq.spi.PluginEntryPoint;
+import com.hivemq.spi.callback.registry.CallbackRegistry;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
