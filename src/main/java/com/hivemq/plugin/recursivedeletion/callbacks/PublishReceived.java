@@ -16,6 +16,8 @@
 
 package com.hivemq.plugin.recursivedeletion.callbacks;
 
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
 import com.google.inject.Inject;
 import com.hivemq.spi.callback.CallbackPriority;
 import com.hivemq.spi.callback.events.OnPublishReceivedCallback;
@@ -23,17 +25,21 @@ import com.hivemq.spi.callback.exception.OnPublishReceivedException;
 import com.hivemq.spi.message.PUBLISH;
 import com.hivemq.spi.message.RetainedMessage;
 import com.hivemq.spi.security.ClientData;
-import com.hivemq.spi.services.RetainedMessageStore;
+import com.hivemq.spi.services.AsyncRetainedMessageStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Set;
 
 public class PublishReceived implements OnPublishReceivedCallback {
 
-    RetainedMessageStore retainedMessageStore;
+    private final AsyncRetainedMessageStore asyncRetainedMessageStore;
+    private final Logger log = LoggerFactory.getLogger(PublishReceived.class);
 
     @Inject
-    PublishReceived(final RetainedMessageStore retainedMessageStore) {
-        this.retainedMessageStore = retainedMessageStore;
+    PublishReceived(final AsyncRetainedMessageStore asyncRetainedMessageStore) {
+        this.asyncRetainedMessageStore = asyncRetainedMessageStore;
     }
-
 
     @Override
     public void onPublishReceived(final PUBLISH publish, final ClientData clientData) throws OnPublishReceivedException {
@@ -45,15 +51,14 @@ public class PublishReceived implements OnPublishReceivedCallback {
 
     private void removeRetainedMessagesRecursively(final PUBLISH publish) {
         final String topicToRemove = publish.getTopic();
-        for (RetainedMessage retainedMessage : retainedMessageStore.getRetainedMessages()) {
-            if (retainedMessage.getTopic().startsWith(topicToRemove + "/") || retainedMessage.getTopic().equals(topicToRemove)) {
-                retainedMessageStore.remove(retainedMessage.getTopic());
-            }
-        }
+
+        final ListenableFuture<Set<RetainedMessage>> future = asyncRetainedMessageStore.getRetainedMessages();
+        Futures.addCallback(future, new SetRetainedMessageCallback(topicToRemove, log, asyncRetainedMessageStore));
     }
 
     @Override
     public int priority() {
         return CallbackPriority.MEDIUM;
     }
+
 }
