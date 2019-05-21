@@ -21,3 +21,11 @@ As long as this plugin is installed, the retained messages of all subtopics will
 . Publish an other retained message with a not empty payload to the topic "test/a"
 . Publish an empty retained message to "test"
 . Both retained messages should be removed
+
+= Contributing
+
+If you want to contribute to HiveMQ Delete Retained Messages Recursively Plugin, see the link:CONTRIBUTING.md[contribution guidelines].
+
+= License
+
+HiveMQ Delete Retained Messages Recursively Plugin is licensed under the `APACHE LICENSE, VERSION 2.0`. A copy of the license can be found link:LICENSE.txt[here].
